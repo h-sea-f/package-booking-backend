@@ -51,7 +51,7 @@ public class WaybillControllerTest {
     }
 
     @Test
-    void should_return_waybill_list_when_getAll() throws Exception{
+    void should_return_waybill_list_when_getAll() throws Exception {
         Waybill waybill = new Waybill();
         waybill.setId("123456");
         waybill.setPhoneNumber("15574957517");
@@ -87,11 +87,30 @@ public class WaybillControllerTest {
         waybill.setStatus(1);
 
         when(waybillService.finished(anyString())).thenReturn(waybill);
-        ResultActions result = mvc.perform(post("/waybills/{id}",waybill.getId()));
+        ResultActions result = mvc.perform(post("/waybills/{id}", waybill.getId()));
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("123456"))
                 .andExpect(jsonPath("$.consignee").value("Sean"));
 
+
+    }
+
+    @Test
+    public void should_add_time_and_change_statue_to_ordered() throws Exception {
+        Waybill waybill = new Waybill();
+        waybill.setId("123456");
+        waybill.setPhoneNumber("15574957517");
+        waybill.setConsignee("Sean");
+        waybill.setWeight(3.0);
+        waybill.setStatus(1);
+
+        when(waybillService.ordered(anyString(),ArgumentMatchers.any(Waybill.class))).thenReturn(waybill);
+        ResultActions result = mvc.perform(patch("/waybills/{id}", waybill.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(waybill)));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("123456"))
+                .andExpect(jsonPath("$.consignee").value("Sean"));
 
     }
 

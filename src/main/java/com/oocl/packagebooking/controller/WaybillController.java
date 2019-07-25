@@ -19,12 +19,17 @@ public class WaybillController {
 
     @GetMapping("/waybills")
     public List<Waybill> getAll() {
-        return  service.getAll();
+        return service.getAll();
     }
 
     @PostMapping("/waybills/{id}")
-    public Waybill finished(@PathVariable String id){
+    public Waybill finished(@PathVariable String id) {
         return service.finished(id);
+    }
+
+    @PatchMapping("/waybills/{id}")
+    public Waybill ordered(@PathVariable String id, @RequestBody Waybill waybill) {
+        return service.ordered(id, waybill);
     }
 
 }

@@ -24,4 +24,11 @@ public class WaybillService {
         waybill.setStatus(2);
         return waybillRepository.save(waybill);
     }
+
+    public Waybill ordered(String id, Waybill waybill) {
+        Waybill oldWaybill = waybillRepository.getOne(id);
+        oldWaybill.setStatus(1);
+        oldWaybill.setTime(waybill.getTime());
+        return waybillRepository.save(oldWaybill);
+    }
 }
