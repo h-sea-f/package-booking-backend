@@ -1,4 +1,20 @@
 package com.oocl.packagebooking.controller;
 
+import com.oocl.packagebooking.model.Waybill;
+import com.oocl.packagebooking.service.WaybillService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class WaybillController {
+    @Autowired
+    WaybillService service;
+
+    @PostMapping("/waybills")
+    public Waybill save(@RequestBody Waybill waybill){
+        return service.save(waybill);
+    }
+
 }
