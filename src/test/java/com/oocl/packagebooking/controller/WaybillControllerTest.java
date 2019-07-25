@@ -40,7 +40,7 @@ public class WaybillControllerTest {
         waybill.setPhoneNumber("15574957517");
         waybill.setConsignee("Sean");
         waybill.setWeight(3.0);
-        waybill.setStatus(0);
+        waybill.setStatus("未预约");
         when(waybillService.save(ArgumentMatchers.any(Waybill.class))).thenReturn(waybill);
         ResultActions result = mvc.perform(post("/waybills")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -57,13 +57,13 @@ public class WaybillControllerTest {
         waybill.setPhoneNumber("15574957517");
         waybill.setConsignee("Sean");
         waybill.setWeight(3.0);
-        waybill.setStatus(0);
+        waybill.setStatus("未预约");
         Waybill waybill1 = new Waybill();
         waybill1.setId("123456789");
         waybill1.setPhoneNumber("15574957517");
         waybill1.setConsignee("Sean123");
         waybill1.setWeight(3.0);
-        waybill1.setStatus(0);
+        waybill1.setStatus("未预约");
         List<Waybill> waybills = new ArrayList<>();
         waybills.add(waybill);
         waybills.add(waybill1);
@@ -84,7 +84,7 @@ public class WaybillControllerTest {
         waybill.setPhoneNumber("15574957517");
         waybill.setConsignee("Sean");
         waybill.setWeight(3.0);
-        waybill.setStatus(1);
+        waybill.setStatus("已预约");
 
         when(waybillService.finished(anyString())).thenReturn(waybill);
         ResultActions result = mvc.perform(post("/waybills/{id}", waybill.getId()));
@@ -102,7 +102,7 @@ public class WaybillControllerTest {
         waybill.setPhoneNumber("15574957517");
         waybill.setConsignee("Sean");
         waybill.setWeight(3.0);
-        waybill.setStatus(1);
+        waybill.setStatus("已预约");
 
         when(waybillService.ordered(anyString(),ArgumentMatchers.any(Waybill.class))).thenReturn(waybill);
         ResultActions result = mvc.perform(patch("/waybills/{id}", waybill.getId())

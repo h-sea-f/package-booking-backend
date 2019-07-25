@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = { "http://localhost:8081", "http://localhost:8088" }, maxAge = 6000)
 @RestController
 public class WaybillController {
     @Autowired

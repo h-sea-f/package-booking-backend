@@ -3,6 +3,6 @@ CREATE TABLE waybill(
 `phone_number` VARCHAR NOT NULL ,
 `consignee` VARCHAR NOT NULL ,
 `weight` DOUBLE NOT NULL,
-`status` INT NOT NULL,
-`time` BIGINT ,
+`status` VARCHAR NOT NULL,
+`order_time` BIGINT ,
 )

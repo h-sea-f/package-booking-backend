@@ -17,8 +17,9 @@ public class Waybill {
     @Column(nullable = false)
     private double weight;
     @Column(nullable = false)
-    private int status;
-    private long time;
+    private String status;
+
+    private Long orderTime;
 
     public String getId() {
         return id;
@@ -52,19 +53,19 @@ public class Waybill {
         this.weight = weight;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public long getTime() {
-        return time;
+    public Long getOrderTime() {
+        return orderTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setOrderTime(Long orderTime) {
+        this.orderTime = orderTime;
     }
 }

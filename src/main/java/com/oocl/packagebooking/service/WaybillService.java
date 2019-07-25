@@ -21,14 +21,14 @@ public class WaybillService {
 
     public Waybill finished(String id) {
         Waybill waybill = waybillRepository.getOne(id);
-        waybill.setStatus(2);
+        waybill.setStatus("已完成");
         return waybillRepository.save(waybill);
     }
 
     public Waybill ordered(String id, Waybill waybill) {
         Waybill oldWaybill = waybillRepository.getOne(id);
-        oldWaybill.setStatus(1);
-        oldWaybill.setTime(waybill.getTime());
+        oldWaybill.setStatus("已预约");
+        oldWaybill.setOrderTime(waybill.getOrderTime());
         return waybillRepository.save(oldWaybill);
     }
 }
