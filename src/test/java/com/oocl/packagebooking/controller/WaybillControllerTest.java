@@ -15,7 +15,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -44,6 +48,33 @@ public class WaybillControllerTest {
         result.andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("123456"))
                 .andExpect(jsonPath("$.phoneNumber").value("15574957517"));
+    }
+
+    @Test
+    void should_return_waybill_list_when_getAll() throws Exception{
+        Waybill waybill = new Waybill();
+        waybill.setId("123456");
+        waybill.setPhoneNumber("15574957517");
+        waybill.setConsignee("Sean");
+        waybill.setWeight(3.0);
+        waybill.setStatus(0);
+        Waybill waybill1 = new Waybill();
+        waybill1.setId("123456789");
+        waybill1.setPhoneNumber("15574957517");
+        waybill1.setConsignee("Sean123");
+        waybill1.setWeight(3.0);
+        waybill1.setStatus(0);
+        List<Waybill> waybills = new ArrayList<>();
+        waybills.add(waybill);
+        waybills.add(waybill1);
+        when(waybillService.getAll()).thenReturn(waybills);
+        ResultActions result = mvc.perform(get("/waybills"));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.[0].id").value("123456"))
+                .andExpect(jsonPath("$.[1].id").value("123456789"))
+                .andExpect(jsonPath("$.[0].consignee").value("Sean"))
+                .andExpect(jsonPath("$.[1].consignee").value("Sean123"));
+
     }
 
 }
