@@ -18,9 +18,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -74,6 +74,24 @@ public class WaybillControllerTest {
                 .andExpect(jsonPath("$.[1].id").value("123456789"))
                 .andExpect(jsonPath("$.[0].consignee").value("Sean"))
                 .andExpect(jsonPath("$.[1].consignee").value("Sean123"));
+
+    }
+
+    @Test
+    public void should_change_statue_to_finished() throws Exception {
+        Waybill waybill = new Waybill();
+        waybill.setId("123456");
+        waybill.setPhoneNumber("15574957517");
+        waybill.setConsignee("Sean");
+        waybill.setWeight(3.0);
+        waybill.setStatus(1);
+
+        when(waybillService.finished(anyString())).thenReturn(waybill);
+        ResultActions result = mvc.perform(post("/waybills/{id}",waybill.getId()));
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("123456"))
+                .andExpect(jsonPath("$.consignee").value("Sean"));
+
 
     }
 

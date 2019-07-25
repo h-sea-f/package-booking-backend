@@ -3,10 +3,7 @@ package com.oocl.packagebooking.controller;
 import com.oocl.packagebooking.model.Waybill;
 import com.oocl.packagebooking.service.WaybillService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,11 @@ public class WaybillController {
     @GetMapping("/waybills")
     public List<Waybill> getAll() {
         return  service.getAll();
+    }
+
+    @PostMapping("/waybills/{id}")
+    public Waybill finished(@PathVariable String id){
+        return service.finished(id);
     }
 
 }

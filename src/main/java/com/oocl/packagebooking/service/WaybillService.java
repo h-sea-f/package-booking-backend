@@ -18,4 +18,10 @@ public class WaybillService {
     public List<Waybill> getAll() {
         return waybillRepository.findAll();
     }
+
+    public Waybill finished(String id) {
+        Waybill waybill = waybillRepository.getOne(id);
+        waybill.setStatus(2);
+        return waybillRepository.save(waybill);
+    }
 }
